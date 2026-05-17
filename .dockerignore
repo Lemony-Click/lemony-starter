@@ -1,0 +1,6 @@
+node_modules
+.git
+dist
+.turbo
+*.log
+apps/web/dist

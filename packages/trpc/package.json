@@ -1,0 +1,30 @@
+{
+  "name": "@workspace/trpc",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@trpc/client": "^11.16.0",
+    "@trpc/server": "^11.16.0",
+    "@workspace/db": "workspace:*",
+    "@workspace/services": "workspace:*",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@turbo/gen": "^2.8.1",
+    "@types/node": "^25.1.0",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0"
+  },
+  "exports": {
+    "./server": "./server/appRouter.ts",
+    "./client": "./client/index.ts"
+  }
+}

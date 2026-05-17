@@ -26,7 +26,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@workspace/ui/*": ["../../packages/ui/src/*"]
+      "@workspace/ui/*": ["../../packages/ui/src/*"],
+      "@workspace/trpc/server": ["../../packages/trpc/server/appRouter.ts"],
+      "@workspace/trpc/client": ["../../packages/trpc/client/index.ts"]
     }
   },
   "include": ["src"]
