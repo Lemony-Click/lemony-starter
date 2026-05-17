@@ -7,11 +7,11 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "turbo format",
+    "check": "biome check --write .",
     "typecheck": "turbo typecheck"
   },
   "devDependencies": {
-    "prettier": "^3.8.1",
-    "prettier-plugin-tailwindcss": "^0.7.2",
+    "@biomejs/biome": "2.4.15",
     "turbo": "^2.8.17",
     "typescript": "5.9.3"
   },

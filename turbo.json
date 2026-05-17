@@ -8,10 +8,14 @@
       "outputs": ["dist/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": []
     },
     "format": {
-      "dependsOn": ["^format"]
+      "dependsOn": ["^format"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": []
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]

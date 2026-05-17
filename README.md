@@ -8,6 +8,7 @@ A full-stack monorepo starter with **Bun**, **tRPC**, **Prisma**, **React**, and
 | --------- | --------------------------------------------- |
 | Runtime   | [Bun](https://bun.sh)                         |
 | Monorepo  | [Turborepo](https://turbo.build)              |
+| Linting   | [Biome](https://biomejs.dev)                  |
 | Database  | PostgreSQL + [Prisma](https://prisma.io) ORM  |
 | API       | [tRPC v11](https://trpc.io) (HTTP standalone) |
 | Frontend  | React 19 + Vite + Tailwind CSS v4             |
@@ -242,7 +243,8 @@ The tRPC `Context` (`packages/trpc/server/trpc.ts`) is intentionally empty in th
 | `bun run build`                 | Build all packages and apps                  |
 | `bun run typecheck`             | Type-check the entire monorepo               |
 | `bun run lint`                  | Lint the entire monorepo                     |
-| `bun run format`                | Format with Prettier                         |
+| `bun run format`                | Format with Biome                            |
+| `bun run check`                 | Lint + format + sort imports (Biome)         |
 | `cd packages/db && bunx prisma db push` | Sync schema (dev)                  |
 | `cd packages/db && bunx prisma migrate dev --name <n>` | Create a migration  |
 | `cd packages/ui && bunx shadcn@latest add <c>` | Add a shadcn/ui component   |
