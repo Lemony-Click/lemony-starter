@@ -60,6 +60,7 @@ export function NoteForm({ noteId, onClose, onSaved }: NoteFormProps) {
 	const [content, setContent] = useState("");
 	const [status, setStatus] = useState<NoteStatus>("DRAFT");
 	const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
+	const [formPopulated, setFormPopulated] = useState(!isEditing);
 
 	// Populate form when editing
 	useEffect(() => {
@@ -68,11 +69,12 @@ export function NoteForm({ noteId, onClose, onSaved }: NoteFormProps) {
 			setContent(noteQuery.data.content);
 			setStatus(noteQuery.data.status);
 			setSelectedTagIds(noteQuery.data.tags.map((t) => t.tag.id));
+			setFormPopulated(true);
 		}
 	}, [noteQuery.data]);
 
 	const isPending = createNote.isPending || updateNote.isPending;
-	const isLoading = isEditing && noteQuery.isLoading;
+	const isLoading = isEditing && !formPopulated;
 
 	function toggleTag(tagId: string) {
 		setSelectedTagIds((prev) =>
