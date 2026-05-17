@@ -3,7 +3,7 @@ type LogLevel = "info" | "warn" | "error";
 function write(
 	level: LogLevel,
 	message: string,
-	data?: Record<string, unknown>
+	data?: Record<string, unknown>,
 ): void {
 	const entry: Record<string, unknown> = {
 		level,
@@ -20,9 +20,9 @@ function write(
 	const line = JSON.stringify(entry);
 
 	if (level === "error") {
-		process.stderr.write(line + "\n");
+		process.stderr.write(`${line}\n`);
 	} else {
-		process.stdout.write(line + "\n");
+		process.stdout.write(`${line}\n`);
 	}
 }
 

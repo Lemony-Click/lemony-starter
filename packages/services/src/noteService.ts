@@ -1,5 +1,5 @@
-import { prisma } from "@workspace/db";
 import type { NoteStatus } from "@workspace/db";
+import { prisma } from "@workspace/db";
 
 export interface CreateNoteInput {
 	title: string;

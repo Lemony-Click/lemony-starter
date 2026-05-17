@@ -1,5 +1,5 @@
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
-import { appRouter, type Context, logger, serializeError } from "@workspace/trpc/server";
+import { appRouter, type Context, logger } from "@workspace/trpc/server";
 
 const server = createHTTPServer({
 	router: appRouter,
@@ -18,7 +18,7 @@ const server = createHTTPServer({
 		res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 		res.setHeader(
 			"Access-Control-Allow-Headers",
-			"Content-Type, Authorization, X-Requested-With, trpc-accept, trpc-batch-supported"
+			"Content-Type, Authorization, X-Requested-With, trpc-accept, trpc-batch-supported",
 		);
 		res.setHeader("Access-Control-Allow-Credentials", "true");
 		res.setHeader("Access-Control-Max-Age", "86400");
@@ -31,7 +31,6 @@ const server = createHTTPServer({
 	},
 });
 
-const port = parseInt(process.env.PORT ?? "3000");
+const port = parseInt(process.env.PORT ?? "3000", 10);
 server.listen(port);
 logger.info("Server started", { port });
-

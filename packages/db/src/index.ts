@@ -9,5 +9,10 @@ if (!connectionString) {
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
+export type {
+	Note,
+	NoteStatus,
+	NoteTag,
+	Tag,
+} from "../generated/prisma/client";
 export { prisma };
-export type { Note, Tag, NoteTag, NoteStatus } from "../generated/prisma/client";

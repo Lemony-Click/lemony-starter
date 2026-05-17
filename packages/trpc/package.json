@@ -1,27 +1,27 @@
 {
-  "name": "@workspace/trpc",
-  "version": "0.0.0",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "lint": "biome lint ./client ./server",
-    "format": "biome format --write ./client ./server",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@trpc/client": "^11.16.0",
-    "@trpc/server": "^11.16.0",
-    "@workspace/db": "workspace:*",
-    "@workspace/services": "workspace:*",
-    "zod": "^4.3.6"
-  },
-  "devDependencies": {
-    "@turbo/gen": "^2.8.1",
-    "@types/node": "^25.1.0",
-    "typescript": "^5.9.3"
-  },
-  "exports": {
-    "./server": "./server/appRouter.ts",
-    "./client": "./client/index.ts"
-  }
+	"name": "@workspace/trpc",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"lint": "biome lint ./client ./server",
+		"format": "biome format --write ./client ./server",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@trpc/client": "^11.16.0",
+		"@trpc/server": "^11.16.0",
+		"@workspace/db": "workspace:*",
+		"@workspace/services": "workspace:*",
+		"zod": "^4.3.6"
+	},
+	"devDependencies": {
+		"@turbo/gen": "^2.8.1",
+		"@types/node": "^25.1.0",
+		"typescript": "^5.9.3"
+	},
+	"exports": {
+		"./server": "./server/appRouter.ts",
+		"./client": "./client/index.ts"
+	}
 }

@@ -1,6 +1,6 @@
+import { noteService } from "@workspace/services";
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
-import { noteService } from "@workspace/services";
 
 const noteStatusSchema = z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]);
 
@@ -20,7 +20,7 @@ export const noteRouter = router({
 				content: z.string().optional().default(""),
 				status: noteStatusSchema.optional(),
 				tagIds: z.array(z.string()).optional().default([]),
-			})
+			}),
 		)
 		.mutation(({ input }) => noteService.create(input)),
 
@@ -32,7 +32,7 @@ export const noteRouter = router({
 				content: z.string().optional(),
 				status: noteStatusSchema.optional(),
 				tagIds: z.array(z.string()).optional(),
-			})
+			}),
 		)
 		.mutation(({ input }) => {
 			const { id, ...data } = input;

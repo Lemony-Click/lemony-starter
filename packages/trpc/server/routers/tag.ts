@@ -1,6 +1,6 @@
+import { tagService } from "@workspace/services";
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
-import { tagService } from "@workspace/services";
 
 export const tagRouter = router({
 	list: publicProcedure.query(() => tagService.list()),
@@ -14,7 +14,7 @@ export const tagRouter = router({
 					.regex(/^#[0-9a-fA-F]{6}$/)
 					.optional()
 					.default("#6366f1"),
-			})
+			}),
 		)
 		.mutation(({ input }) => tagService.create(input)),
 
