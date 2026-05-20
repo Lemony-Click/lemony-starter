@@ -73,7 +73,7 @@ Key variables:
 | `CORS_ORIGIN`    | `http://localhost:5173`                          | Allowed origin for CORS            |
 | `VITE_SERVER_URL`| `http://localhost:3000`                          | API URL used by the web app        |
 
-> **Note:** `packages/db` loads `DATABASE_URL` via `dotenv/config`. The server and web apps read it from the process environment (or a `.env` file at the workspace root).
+> **Note:** All apps read from the single root `.env` file. Bun loads it automatically for the server (`--env-file` in the dev script); Vite reads it via `envDir`; Prisma CLI commands load it directly in `prisma.config.ts`.
 
 ### 3. Install dependencies
 
@@ -84,9 +84,8 @@ bun install
 ### 4. Push schema to the database & generate Prisma client
 
 ```bash
-cd packages/db
-bunx prisma db push      # sync schema to the dev database
-bunx prisma generate     # regenerate the type-safe client
+bun run db:push      # sync schema to the dev database
+bun run db:generate  # regenerate the type-safe client
 ```
 
 `prisma db push` is the recommended workflow for local development — it applies the current schema directly without creating migration files. Use `prisma migrate dev` when you want to track schema changes as versioned migrations (see [Migrations](#migrations)).
@@ -129,12 +128,18 @@ Services started:
 For schema changes that need to be tracked and deployed safely in production, use Prisma's migration workflow instead of `db push`:
 
 ```bash
+# Create and apply a new migration (from workspace root)
+bun run db:migrate -- --name <describe-your-change>
+
+# Apply pending migrations in CI / production
+bun run db:deploy
+```
+
+You can also run Prisma CLI directly from `packages/db` — `DATABASE_URL` is loaded automatically from the workspace root `.env`:
+
+```bash
 cd packages/db
-
-# Create and apply a new migration
 bunx prisma migrate dev --name <describe-your-change>
-
-# Apply pending migrations in CI / production (no interactive prompt)
 bunx prisma migrate deploy
 ```
 
@@ -245,7 +250,8 @@ The tRPC `Context` (`packages/trpc/server/trpc.ts`) is intentionally empty in th
 | `bun run lint`                  | Lint the entire monorepo                     |
 | `bun run format`                | Format with Biome                            |
 | `bun run check`                 | Lint + format + sort imports (Biome)         |
-| `cd packages/db && bunx prisma db push` | Sync schema (dev)                  |
-| `cd packages/db && bunx prisma migrate dev --name <n>` | Create a migration  |
+| `bun run db:push`                   | Sync schema to dev database          |
+| `bun run db:migrate`                | Create & apply a migration           |
+| `bun run db:generate`               | Regenerate Prisma client             |
 | `cd packages/ui && bunx shadcn@latest add <c>` | Add a shadcn/ui component   |
 

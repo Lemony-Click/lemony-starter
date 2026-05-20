@@ -8,7 +8,11 @@
 		"lint": "turbo lint",
 		"format": "turbo format",
 		"check": "biome check --write .",
-		"typecheck": "turbo typecheck"
+		"typecheck": "turbo typecheck",
+		"db:push": "bun run --filter @workspace/db prisma:push",
+		"db:migrate": "bun run --filter @workspace/db prisma:migrate",
+		"db:generate": "bun run --filter @workspace/db prisma:generate",
+		"db:deploy": "bun run --filter @workspace/db prisma:deploy"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.15",

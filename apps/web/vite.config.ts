@@ -6,6 +6,8 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+	// Load .env from the workspace root so all apps share a single env file.
+	envDir: path.resolve(__dirname, "../.."),
 	plugins: [
 		tanstackRouter({ target: "react", autoCodeSplitting: true }),
 		react(),
