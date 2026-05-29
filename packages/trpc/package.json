@@ -9,15 +9,15 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@trpc/client": "^11.16.0",
-		"@trpc/server": "^11.16.0",
+		"@trpc/client": "^11.17.0",
+		"@trpc/server": "^11.17.0",
 		"@workspace/db": "workspace:*",
 		"@workspace/services": "workspace:*",
-		"zod": "^4.3.6"
+		"zod": "^4.4.3"
 	},
 	"devDependencies": {
-		"@turbo/gen": "^2.8.1",
-		"@types/node": "^25.1.0",
+		"@turbo/gen": "^2.9.16",
+		"@types/node": "^25.9.1",
 		"typescript": "^5.9.3"
 	},
 	"exports": {
