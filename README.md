@@ -71,7 +71,7 @@ Key variables:
 | `DATABASE_URL`   | `postgresql://postgres:postgres@localhost:5432/lemony` | Prisma connection string     |
 | `PORT`           | `3000`                                           | API server port                    |
 | `CORS_ORIGIN`    | `http://localhost:5173`                          | Allowed origin for CORS            |
-| `VITE_SERVER_URL`| `http://localhost:3000`                          | API URL used by the web app        |
+| `VITE_SERVER_URL`| `http://localhost:3000/trpc`                     | API URL used by the web app        |
 
 > **Note:** All apps read from the single root `.env` file. Bun loads it automatically for the server (`--env-file` in the dev script); Vite reads it via `envDir`; Prisma CLI commands load it directly in `prisma.config.ts`.
 

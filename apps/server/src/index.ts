@@ -1,36 +1,49 @@
-import { createHTTPServer } from "@trpc/server/adapters/standalone";
-import { appRouter, type Context, logger } from "@workspace/trpc/server";
-
-const server = createHTTPServer({
-	router: appRouter,
-	onError: ({ error, path, type }) => {
-		logger.error("tRPC error", {
-			path,
-			type,
-			code: error.code,
-			errorMessage: error.message,
-		});
-	},
-	createContext: (): Context => ({}),
-	middleware: (req, res, next) => {
-		const allowedOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
-		res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
-		res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-		res.setHeader(
-			"Access-Control-Allow-Headers",
-			"Content-Type, Authorization, X-Requested-With, trpc-accept, trpc-batch-supported",
-		);
-		res.setHeader("Access-Control-Allow-Credentials", "true");
-		res.setHeader("Access-Control-Max-Age", "86400");
-		if (req.method === "OPTIONS") {
-			res.writeHead(204);
-			res.end();
-			return;
-		}
-		next();
-	},
-});
+import cors from "@fastify/cors";
+import {
+	type FastifyTRPCPluginOptions,
+	fastifyTRPCPlugin,
+} from "@trpc/server/adapters/fastify";
+import {
+	type AppRouter,
+	appRouter,
+	type Context,
+	logger,
+} from "@workspace/trpc/server";
+import Fastify from "fastify";
 
 const port = parseInt(process.env.PORT ?? "3000", 10);
-server.listen(port);
-logger.info("Server started", { port });
+const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
+
+const server = Fastify({
+	maxParamLength: 5000,
+});
+
+await server.register(cors, {
+	origin: corsOrigin,
+	credentials: true,
+	methods: ["GET", "POST", "OPTIONS"],
+});
+
+await server.register(fastifyTRPCPlugin, {
+	prefix: "/trpc",
+	trpcOptions: {
+		router: appRouter,
+		createContext: (): Context => ({}),
+		onError: ({ error, path, type }) => {
+			logger.error("tRPC error", {
+				path,
+				type,
+				code: error.code,
+				errorMessage: error.message,
+			});
+		},
+	} satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
+});
+
+try {
+	await server.listen({ port, host: "0.0.0.0" });
+	logger.info("Server started", { port });
+} catch (err) {
+	logger.error("Failed to start server", { error: err });
+	process.exit(1);
+}
